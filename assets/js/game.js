@@ -63,7 +63,18 @@ var fight = function () {
 
   // if skip is selected or if neither is inputted
   else if (promptFight === "skip" || promptFight === "SKIP") {
-    window.alert(playerName + " has chosen to skip the fight!");
+    // confirm player wants to skip
+    var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+    // if true, leave the fight
+    if (confirmSkip) {
+        window.alert(playerName + " has decided to skip this fight. Goodbye!");
+        playerMoney = playerMoney - 2;
+        console.log("You now have " + playerMoney + " money remaining.");
+    }
+    // if false, ask question by running fight() again
+    else {
+        fight();
+    }
   } else {
     window.alert("You need to choose a valid option. Try again!");
   }
