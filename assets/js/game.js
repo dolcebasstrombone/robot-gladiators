@@ -77,14 +77,48 @@ var fight = function (enemyName) {
   }
 };
 
-for (var i = 0; i < enemyNames.length; i++) {
-  if (playerHealth > 0) {
-    window.alert("Welcome to Robot Gladiators! Round " + (i + 1) + "!");
-    var pickedEnemyName = enemyNames[i];
-    enemyHealth = 50;
-    fight(pickedEnemyName);
-  } else {
-    window.alert("You have lost you robot in battle! Game Over!");
-    break;
+var startGame = function () {
+  //reset player stats
+  playerHealth = 100;
+  playerAttack = 10;
+  playerMoney = 10;
+  //game logic
+  for (var i = 0; i < enemyNames.length; i++) {
+    if (playerHealth > 0) {
+      window.alert("Welcome to Robot Gladiators! Round " + (i + 1) + "!");
+      var pickedEnemyName = enemyNames[i];
+      enemyHealth = 50;
+      fight(pickedEnemyName);
+    } else {
+      window.alert("You have lost you robot in battle! Game Over!");
+      break;
+    }
+  }
+  // play again or exit
+  endGame();
+};
+
+var endGame = function () {
+  //if player is alive, they win, if not, they lose
+  if (playerHealth < 0) {
+    window.alert("Great job, you've survived the game! You have a score of " + playerMoney + " .");
+  }
+  else {
+    window.alert("You've lost your robot in battle.");
+  }
+  // ask if they'd like to play again
+  var playAgainConfirm = window.confirm("Would you like to play again?");
+  if (playAgainConfirm) {
+    startGame();
+  }
+  else {
+    window.alert("Thank you for playing Robot Gladiators! Come back soon!");
   }
 }
+
+startGame();
+
+//TODO:
+// create end game function that alerts score, asks for replay, if yes call game logic
+//after player skips/defeats enemy, prompt shop, if no continues, if yes call shop function
+// shop function refill health, upgrade attack, or leave shop, results for each option and invalid input
