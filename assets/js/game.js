@@ -9,7 +9,12 @@ var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
-// fight function
+//variable functions
+var randomNumber = function(min, max) {
+  var value = Math.floor(Math.random() * (max - min +1) + min);
+  return value;
+}
+
 var fight = function (enemyName) {
   // repeat as long as enemy is alive
   while (playerHealth > 0 && enemyHealth > 0) {
@@ -25,13 +30,14 @@ var fight = function (enemyName) {
       // if true, leave the fight
       if (confirmSkip) {
         window.alert(playerName + " has decided to skip this fight. Goodbye!");
-        playerMoney = playerMoney - 10;
+        playerMoney = Math.max(0, playerMoney - 10);
         console.log("You now have " + playerMoney + " money remaining.");
         break;
       }
     } else if (promptFight === "fight" || promptFight === "FIGHT") {
       // subtract player health from enemy health and log it
-      enemyHealth = enemyHealth - playerAttack;
+      var damage = randomNumber(playerAttack - 3, playerAttack);
+      enemyHealth = Math.max(0, enemyHealth - damage);
       console.log(
         playerName +
           " attacked " +
@@ -51,7 +57,8 @@ var fight = function (enemyName) {
         window.alert(enemyName + " still has " + enemyHealth + " health left.");
       }
       // subtract enemy attack from player health and log it
-      playerHealth = playerHealth - enemyAttack;
+      var damage = randomNumber(enemyAttack - 3, enemyAttack);
+      playerHealth = Math.max(0, playerHealth - damage);
       console.log(
         enemyName +
           " attacked " +
@@ -87,7 +94,7 @@ var startGame = function () {
     if (playerHealth > 0) {
       window.alert("Welcome to Robot Gladiators! Round " + (i + 1) + "!");
       var pickedEnemyName = enemyNames[i];
-      enemyHealth = 50;
+      enemyHealth = randomNumber(40, 60);
       fight(pickedEnemyName);
       // if we're not the last enemy in the array, shop
       if (playerHealth > 0 && i < enemyNames.length - 1) {
@@ -179,3 +186,9 @@ startGame();
 
 //TODO:
 //add fuction to repropmt shop after buying something
+//start enemies with random health between 40 and 60
+//as well as random attack from 10 to 14
+//attack damage is random, using players attack value as upper limit. ex, attack=10, damage can be 7-10
+
+//use objects to organize player and enemy data
+//create objects to perform player actions
