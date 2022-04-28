@@ -153,9 +153,20 @@ var shop = function () {
   }
 };
 
+var getPlayerName = function() {
+  var name = "";
+
+while (name === "" || name === null) {
+  name = prompt("What is your robot's name?");
+}
+
+console.log("Your robot's name is " + name);
+return name;
+}
+
 // player variables
 var playerInfo = {
-  name: window.prompt("What is your robot's name?"),
+  name: getPlayerName(),
   health: 100,
   attack: 10,
   money: 10,
@@ -203,12 +214,3 @@ var enemyInfo = [
 ];
 
 startGame();
-
-//TODO:
-//add fuction to repropmt shop after buying something
-//start enemies with random health between 40 and 60
-//as well as random attack from 10 to 14
-//attack damage is random, using players attack value as upper limit. ex, attack=10, damage can be 7-10
-
-//use objects to organize player and enemy data
-//create objects to perform player actions
